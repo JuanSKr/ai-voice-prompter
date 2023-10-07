@@ -1,13 +1,17 @@
-import speech_recognition
-import pyttsx3
+import speech_recognition as sr
+import time
+
+keep_listen = True
 
 
 def startToListen():
-    recognizer = speech_recognition.Recognizer()
+    global keep_listen
 
-    while True:
+    recognizer = sr.Recognizer()
+
+    while keep_listen:
         try:
-            with speech_recognition.Microphone() as mic:
+            with sr.Microphone() as mic:
                 recognizer.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = recognizer.listen(mic)
                 text = recognizer.recognize_google(audio, language="es")
@@ -16,24 +20,36 @@ def startToListen():
                 if text == "prueba":
                     print("Listening...")
                     transcript()
-        except speech_recognition.UnknownValueError:
+        except sr.UnknownValueError:
             continue
 
 
 def transcript():
-    recognizer = speech_recognition.Recognizer()
+    global keep_listen
 
-    while True:
-        try:
-            with speech_recognition.Microphone() as mic:
-                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-                audio = recognizer.listen(mic)
+    recognizer = sr.Recognizer()
+    inactivity_timeout = 5
+    last_audio_time = time.time()
+
+    while keep_listen:
+        with sr.Microphone() as mic:
+            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+
+            try:
+                audio = recognizer.listen(
+                    mic,
+                    timeout=inactivity_timeout,
+                    phrase_time_limit=inactivity_timeout,
+                )
                 text = recognizer.recognize_google(audio, language="es")
                 text = text.lower()
-
                 print(f"Voice: {text}")
-        except speech_recognition.UnknownValueError:
-            continue
+
+                last_audio_time = time.time()
+            except sr.UnknownValueError:
+                if time.time() - last_audio_time >= inactivity_timeout:
+                    print("Listening has been stopped for inactivity.")
+                    keep_listen = False
 
 
 startToListen()
