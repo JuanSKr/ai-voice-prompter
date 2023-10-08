@@ -44,6 +44,7 @@ def transcript():
                 text = recognizer.recognize_google(audio, language="es")
                 text = text.lower()
                 print(f"Voice: {text}")
+                return text
 
                 last_audio_time = time.time()
             except sr.UnknownValueError:
@@ -52,4 +53,22 @@ def transcript():
                     keep_listen = False
 
 
-startToListen()
+def voiceTest():
+    arx = True
+
+    recognizer = sr.Recognizer()
+
+    while arx:
+        try:
+            with sr.Microphone() as mic:
+                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = recognizer.listen(mic)
+                text = recognizer.recognize_google(audio, language="es")
+                text = text.lower()
+
+                arx = False
+                print(f"Voice: {text}")
+                return text
+
+        except sr.UnknownValueError:
+            continue
