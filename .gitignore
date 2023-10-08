@@ -1,5 +1,5 @@
 
 .vscode/settings.json
-config.py
+xconfig.py
 cookies_snapshot
 __pycache__
