@@ -13,6 +13,6 @@ sign.saveCookiesToDir(cookies_path_dir)
 
 chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
 
-query_result = chatbot.query(voice_prompt, web_search=True)
+query_result = chatbot.query("Responde en español " + voice_prompt, web_search=True)
 answer = query_result
 print(query_result)
