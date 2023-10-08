@@ -3,7 +3,7 @@
 Simple program for voice prompts.
 
 > **Important**  
-> - You must have a microphone to test the programme.
+> - You must have a microphone to test the program.
 > - The keyword to activate listening is "echo".
 > - The default listening language is English.
 
