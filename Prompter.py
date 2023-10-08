@@ -1,6 +1,6 @@
 from hugchat import hugchat
 from hugchat.login import Login
-import Config as acc
+import XConfig as acc
 
 
 def prompter(voice_prompt):
