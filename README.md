@@ -12,7 +12,7 @@ Simple program for voice prompts.
 pip install hugchat
 ```
 ```bash
-pip3 install SpeechRecognition
+pip install SpeechRecognition
 ```
 
 ## Usage
