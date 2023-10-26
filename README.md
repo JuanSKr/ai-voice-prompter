@@ -14,6 +14,9 @@ pip install hugchat
 ```bash
 pip install SpeechRecognition
 ```
+```bash
+pip install pyaudio
+```
 
 ## Usage
 
