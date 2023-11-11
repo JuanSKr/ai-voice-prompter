@@ -6,7 +6,7 @@ class Prompter:
     def __init__(self):
         self.sign = Login(acc.HUG_MAIL, acc.HUG_PASS)
         self.cookies = None
-        self.cookies_path_dir = "./cookies_snapshot"
+        self.cookies_path_dir = "../cookies_snapshot"
         self.chatbot = None
         self.query_result = None
 
