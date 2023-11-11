@@ -1,37 +1,38 @@
 import speech_recognition as sr
 import Prompter
 
-
 class Listener:
+    LISTENING_KEYWORD = "prueba"
+    USER_LANGUAGE = "es"
+
     def __init__(self):
-        pass
+        self.recognizer = sr.Recognizer()
+        self.audio = None
+        self.text = None
 
     def voicePrompter(self):
-        recognizer = sr.Recognizer()
-        user_language = "en"
-        listening_keyword = "echo"
-
         while True:
             try:
                 with sr.Microphone() as mic:
-                    recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-                    audio = recognizer.listen(mic)
-                    text = recognizer.recognize_google(audio, language=user_language)
-                    text = text.lower()
+                    self.recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                    self.audio = self.recognizer.listen(mic)
+                    self.text = self.recognizer.recognize_google(self.audio, language=self.USER_LANGUAGE)
+                    self.text = self.text.lower()
 
-                    if text == listening_keyword:
+                    if self.text == self.LISTENING_KEYWORD:
                         print("Listening...")
-                        arx = True
-                        while arx:
-                            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-                            prompt_audio = recognizer.listen(mic)
-                            prompt_text = recognizer.recognize_google(
-                                prompt_audio, language=user_language
+                        is_listening = True
+                        while is_listening:
+                            self.recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                            prompt_audio = self.recognizer.listen(mic)
+                            prompt_text = self.recognizer.recognize_google(
+                                prompt_audio, language=self.USER_LANGUAGE
                             )
                             prompt_text = prompt_text.lower()
-                            arx = False
+                            is_listening = False
                             print(prompt_text)
                             Prompter.prompter(prompt_text)
 
             except sr.UnknownValueError:
+                print("An error occurred while recognizing the speech. Please try again.")
                 continue

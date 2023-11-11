@@ -3,11 +3,10 @@ import Listener
 
 class Main:
     def __init__(self):
-        pass
+        self.listener = Listener.Listener()
 
     def run(self):
-        listener = Listener.Listener()
-        listener.voicePrompter()
+        self.listener.voicePrompter()
 
 
 if __name__ == "__main__":
