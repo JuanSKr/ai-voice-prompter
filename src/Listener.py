@@ -2,8 +2,8 @@ import speech_recognition as sr
 import Prompter
 
 class Listener:
-    LISTENING_KEYWORD = "prueba"
-    USER_LANGUAGE = "es"
+    LISTENING_KEYWORD = "echo"
+    USER_LANGUAGE = "en"
 
     def __init__(self):
         self.recognizer = sr.Recognizer()
